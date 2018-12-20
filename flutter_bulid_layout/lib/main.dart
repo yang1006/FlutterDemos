@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'count.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-void main() => runApp(new MyApp());
+//void main() => runApp(new MyApp());
+
+void main() => runApp(new countApp());
+
 
 class MyApp extends StatelessWidget {
   @override
@@ -40,13 +45,26 @@ class MyApp extends StatelessWidget {
       ),
     );
 
-    Column buildButtonColumn(IconData icon, String label){
+    Widget buildClickableIcon(IconData icon, String lable) {
+      Color color = Theme.of(context).primaryColor;
+      return new GestureDetector(
+        onTap: () {
+          print('Icon was tapped!');
+        },
+        onLongPress: (){
+          print('Icon was long pressed');
+        },
+        child: new Icon(icon, color: color)
+      );
+    }
+
+    Column buildButtonColumn(IconData icon, String label) {
       Color color = Theme.of(context).primaryColor;
       return new Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          new Icon(icon, color: color),
+          buildClickableIcon(icon, label),
           new Container(
             margin: const EdgeInsets.only(top: 8.0),
             child: new Text(
@@ -74,6 +92,7 @@ class MyApp extends StatelessWidget {
     );
 
 
+
     Widget textSection = new Container(
       padding: const EdgeInsets.all(32.0),
       child: new Text(
@@ -83,7 +102,7 @@ class MyApp extends StatelessWidget {
             'through pastures and pine forest, leads you to the lake, which warms to '
             '20 degrees Celsius in the summer. '
             'Activities enjoyed here include rowing, and riding the summer toboggan run.',
-        softWrap: true,  //softwrap属性表示文本是否应在软换行符（例如句点或逗号）之间断开。
+        softWrap: true, //softwrap属性表示文本是否应在软换行符（例如句点或逗号）之间断开。
       ),
     );
 
@@ -96,26 +115,20 @@ class MyApp extends StatelessWidget {
 //          appBar: new AppBar(
 //            title: new Text('Welcome to Flutter'),
 //          ),
-          body: new ListView(
-            children: <Widget>[
-              new Image.asset(
-                'images/lake.jpg',
-                width: 600.0,
-                height: 240.0,
-                fit: BoxFit.cover,   //图像应该尽可能小，但覆盖整个渲染框
-              ),
-              titleSection,
-              buttonSection,
-              textSection,
-            ],
-          ),
+        body: new ListView(
+          children: <Widget>[
+            new Image.asset(
+              'images/lake.jpg',
+              width: 600.0,
+              height: 240.0,
+              fit: BoxFit.cover, //图像应该尽可能小，但覆盖整个渲染框
+            ),
+            titleSection,
+            buttonSection,
+            textSection,
+          ],
         ),
-
+      ),
     );
-
-
-
   }
-
-
 }
